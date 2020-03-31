@@ -126,7 +126,10 @@ def get_single_day(
     for date, datas in grouped:
         current_place = {}
         path_count = {}
-        process_single_car(datas, path_count, current_place)
+        grouped_car = datas.groupby('device_num')
+        for name, data in grouped_car:
+            print(name)
+            process_single_car(data, path_count, current_place)
         # for k, v in current_place.items():
         #     print(k, v)
         # for k, v in path_count.items():
@@ -134,14 +137,14 @@ def get_single_day(
         to_Sql(current_place, path_count, date)
 
 
-def process_single_car(datas, path_count, current_place):
-    datas = np.array(datas)  #np.ndarray()
-    datas = datas.tolist()  #list
-    if len(datas) >= 1:
-        finalplace = Place(datas[0][3], datas[0][4], datas[0][5], datas[0][6])
-        for i in range(1, len(datas)):
-            tempplace = Place(datas[i][3], datas[i][4], datas[i][5],
-                              datas[i][6])
+def process_single_car(data, path_count, current_place):
+    data = np.array(data)  #np.ndarray()
+    data = data.tolist()  #list
+    if len(data) >= 1:
+        finalplace = Place(data[0][3], data[0][4], data[0][5], data[0][6])
+        for i in range(1, len(data)):
+            tempplace = Place(data[i][3], data[i][4], data[i][5],
+                              data[i][6])
             if not tempplace.equals(finalplace):
                 path = encodepath(finalplace, tempplace)
                 if path in path_count:

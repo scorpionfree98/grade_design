@@ -12,7 +12,7 @@ engine = create_engine('mysql+pymysql://dev:123456@211.82.83.126:3306/beidou_dev
 
 
 sql = '''
-      SELECT a.insert_id, a.device_num, a.GNSS_time , a.GNSS_time, b.dist_province , b.dist_city , b.dist_district,b.dist_township FROM device_position_act b INNER JOIN device_position_infomation a ON a.insert_id = b.insert_id;
+      SELECT a.insert_id, a.device_num, a.GNSS_time , b.dist_province , b.dist_city , b.dist_district,b.dist_township FROM device_position_act b INNER JOIN device_position_infomation a ON a.insert_id = b.insert_id;
       '''
 
 # read_sql_query的两个参数: sql语句， 数据库连接

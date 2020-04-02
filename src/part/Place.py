@@ -32,21 +32,22 @@ def decodepath(s):
     words=s.split("-")
     return decodeplace(words[0]),decodeplace(words[1])
 # 测试代码
-test_place="北京  海淀 东升"
-test_path="北京  海淀 东升-安徽 六安 裕安 城南"
-s_province,s_city,s_district,s_township="北京","","海淀","东升"
-e_province,e_city,e_district,e_township="安徽","六安","裕安","城南"
+def test():
+    test_place="北京  海淀 东升"
+    test_path="北京  海淀 东升-安徽 六安 裕安 城南"
+    s_province,s_city,s_district,s_township="北京","","海淀","东升"
+    e_province,e_city,e_district,e_township="安徽","六安","裕安","城南"
 
-start_place = Place(s_province,s_city,s_district,s_township)
-end_place = Place(e_province,e_city,e_district,e_township)
+    start_place = Place(s_province,s_city,s_district,s_township)
+    end_place = Place(e_province,e_city,e_district,e_township)
 
-print(start_place.encodeplace())
-print(end_place.encodeplace())
+    print(start_place.encodeplace())
+    print(end_place.encodeplace())
 
-print(encodepath(start_place,end_place))
+    print(encodepath(start_place,end_place))
 
-p=decodeplace(test_place)
-p.print()
-s,e=decodepath(test_path)
-s.print()
-e.print()
+    p=decodeplace(test_place)
+    p.print()
+    s,e=decodepath(test_path)
+    s.print()
+    e.print()

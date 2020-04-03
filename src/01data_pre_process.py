@@ -58,7 +58,7 @@ def decodepath(s):
 def to_Sql(current_place, path_count, date):
 
     try:
-        #连接数据库
+        # 连接数据库
         db = pymysql.connect(host="211.82.83.126",
                              port=3306,
                              user="dev",
@@ -68,8 +68,12 @@ def to_Sql(current_place, path_count, date):
         # 创建游标
         cursor = db.cursor()
         # sql命令
-        sql1 = "INSERT INTO `beidou_dev`.`daily_place_count`(`province`, `city`, `district`, `township`, `count`, `date`) VALUES (%s, %s, %s, %s, %s, %s)"
-        sql2 = "INSERT INTO `beidou_dev`.`daily_path_count`(`start_province`, `start_city`, `start_district`, `start_township`, `end_province`, `end_city`, `end_district`, `end_township`, `date`, `count`) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        sql1 = "INSERT INTO `beidou_dev`.`daily_place_count`"\
+            "(`province`, `city`, `district`, `township`, `count`, `date`) "\
+            "VALUES (%s, %s, %s, %s, %s, %s)"
+        sql2 = "INSERT INTO `beidou_dev`.`daily_path_count`"\
+            "(`start_province`, `start_city`, `start_district`, `start_township`, `end_province`, "\
+            "`end_city`, `end_district`, `end_township`, `date`, `count`) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         # 执行sql命令
         for k, v in current_place.items():
@@ -138,8 +142,8 @@ def get_single_day(
 
 
 def process_single_car(data, path_count, current_place):
-    data = np.array(data)  #np.ndarray()
-    data = data.tolist()  #list
+    data = np.array(data)  # np.ndarray()
+    data = data.tolist()  # list
     if len(data) >= 1:
         finalplace = Place(data[0][3], data[0][4], data[0][5], data[0][6])
         for i in range(1, len(data)):

@@ -24,7 +24,7 @@
     <!--上线运行时需要将https://删除-->
     <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
     <!--上线运行时需要将https://删除-->
-    <script src="static/common.js"></script>
+    <script src={{ url_for('static',filename='js/common.js') }}></script>
     <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.min.js"></script>
     <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.threelayers.min.js"></script>
   </head>

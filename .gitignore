@@ -5,3 +5,6 @@
 /data/
 /venv/
 /.idea/
+/__pycache__/
+/src/part/__pycache__/
+

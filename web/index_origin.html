@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>MapVGL</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map_container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=7hAEn2CdZ5ICqdQDYiMBZjvTn3YNB3CA"></script>
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=7hAEn2CdZ5ICqdQDYiMBZjvTn3YNB3CA"></script>
+    <!--上线运行时需要将https://删除-->
+    <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
+    <!--上线运行时需要将https://删除-->
+    <script src="static/common.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.min.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.threelayers.min.js"></script>
+  </head>
+  <body>
+    <div id="map_container"></div>
+    <script>
+      // 6322,2363
+
+      /* global BMapGL */
+
+      /* global mapv */
+
+      /* global mapvgl */
+
+      /* global initMap */
+
+      /* global purpleStyle */
+
+      var map = initMap({
+        tilt: 30,
+        heading: 0,
+        center: [111.858773, 27.84893],
+        // 此处需要将地址改为所有点的中心
+        zoom: 8.5,
+        style: purpleStyle
+      });
+
+      var citys = [
+        "长沙市",
+        "株洲市",
+        "湘潭市",
+        "衡阳市",
+        "邵阳市",
+        "岳阳市",
+        "常德市",
+        "张家界市",
+        "益阳市",
+        "郴州市",
+        "永州市",
+        "怀化市",
+        "娄底市"
+      ];
+
+      var randomCount = 100; // 模拟的飞线的数量
+      var curve = new mapvgl.BezierCurve();
+
+      var data = [];
+      var data2 = [];
+
+      // 构造数据
+      while (randomCount--) {
+        var startPoint = mapv.utilCityCenter.getCenterByCityName(//选择起点
+          citys[parseInt(Math.random() * citys.length, 10)]
+        );
+        var endPoint = mapv.utilCityCenter.getCenterByCityName(//选择终点
+          citys[parseInt(Math.random() * citys.length, 10)]
+        );
+        // alert(startPoint.lng+" "+ startPoint.lat+" "+endPoint.lng+" "+ endPoint.lat)
+        curve.setOptions({//设置贝塞尔曲线的起始点和终止点
+          
+          start: [startPoint.lng, startPoint.lat],
+          end: [endPoint.lng, endPoint.lat]
+        });
+        var curveModelData = curve.getPoints();
+
+        data.push({ //设置曲线的数据
+          geometry: {
+            type: "LineString",
+            coordinates: curveModelData
+          },
+          properties: {
+            count: Math.random()
+          }
+        });
+
+        data2.push({ //设置点的数据
+          geometry: {
+            type: "Point",
+            coordinates: [endPoint.lng, endPoint.lat]
+          },
+          properties: {
+            count: Math.random() * 40
+          }
+        });
+      }
+      console.log(data)
+      console.log(data2)
+      var view = new mapvgl.View({
+        map: map
+      });
+
+      var flylineLayer = new mapvgl.FlyLineLayer({
+        style: "chaos",
+        step: 0.3,
+        color: "rgba(33, 242, 214, 0.3)",
+        textureColor: function(data) {
+          return data.properties.count > 0.5 ? "#ff0000" : "#56ccdd";
+        },
+        textureWidth: 32,
+        textureLength: 10
+      });
+      var pointLayer = new mapvgl.PointLayer({
+        blend: "lighter",
+        size: function(item) {
+          return item.properties.count;
+        },
+        color: "rgba(89, 0, 179,0.6)"
+      });
+      view.addLayer(pointLayer);
+      pointLayer.setData(data2);
+
+      view.addLayer(flylineLayer);
+      flylineLayer.setData(data);
+    </script>
+  </body>
+</html>

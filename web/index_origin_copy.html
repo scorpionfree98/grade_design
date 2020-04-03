@@ -52,7 +52,7 @@
         style: purpleStyle
       });
 
-      var citys = [
+      var places = [
         "河南省 开封市 龙亭区 西湖街道",
         "河南省 南阳市 新野县 前高庙乡",
         "河南省 商丘市 睢县 城郊乡",
@@ -74,7 +74,7 @@
         "山东省 泰安市 东平县 彭集街道",
         "山东省 济宁市 汶上县 次丘镇",
         "河南省 [] 济源市 济源市五龙口镇",
-        "河南省 南阳市 卧龙区 陆营镇",
+        "河南省 南阳市 卧龙区 陆营镇"
         // "河南省 安阳市 汤阴县 五陵镇",
         // "安徽省 宿州市 灵璧县 灵城镇",
         // "山东省 德州市 陵城区 神头镇",
@@ -269,29 +269,49 @@
         // "安徽省 芜湖市 三山区 安徽芜湖三山经济开发区"
       ];
 
-      var path = [
-        ["河南省 安阳市 汤阴县 五陵镇", "河南省 鹤壁市 浚县 ", 8],
-        ["河南省 鹤壁市 浚县 ", "河南省 安阳市 汤阴县 五陵镇", 8],
-        ["河南省 安阳市 汤阴县 瓦岗乡", "河南省 鹤壁市 浚县 ", 1],
-        ["河南省 鹤壁市 浚县 ", "河南省 安阳市 汤阴县 瓦岗乡", 1],
-        ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍泉区 宁老庄镇", 43],
-        ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍泉区 行流镇", 38],
-        ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍泉区 中市街道", 34],
-        ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍泉区 行流镇", 50],
-        ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍泉区 中市街道", 46],
-        ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍泉区 宁老庄镇", 30],
-        ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍州区 文峰街道", 2],
-        ["安徽省 阜阳市 颍州区 文峰街道", "安徽省 阜阳市 颍泉区 行流镇", 1],
-        ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍州区 颍西街道", 45],
-        ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 中市街道", 45],
-        ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 行流镇", 3],
-        ["安徽省 阜阳市 颍州区 文峰街道", "安徽省 阜阳市 颍泉区 中市街道", 6],
-        ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍州区 文峰街道", 1],
-        ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍州区 颍西街道", 1],
-        ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍州区 颍西街道", 1],
-        ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 宁老庄镇", 1],
-        ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍州区 文峰街道", 6]
-        // ,
+      var paths = [
+        [[114.593706, 35.889054], [114.557608, 35.681917], 8],
+        [[114.557608, 35.681917], [114.593706, 35.889054], 8],
+        [[114.512447, 35.87143], [114.557608, 35.681917], 1],
+        [[114.557608, 35.681917], [114.512447, 35.87143], 1],
+        [[115.683581, 33.01602], [115.766949, 33.024228], 43],
+        [[115.766949, 33.024228], [115.683581, 33.01602], 38],
+        [[115.766949, 33.024228], [115.836304, 32.906799], 34],
+        [[115.836304, 32.906799], [115.683581, 33.01602], 50],
+        [[115.683581, 33.01602], [115.836304, 32.906799], 46],
+        [[116.309678, 39.966884], [115.683581, 33.01602], 1],
+        [[115.683581, 33.01602], [116.309678, 39.966884], 2],
+        [[115.836304, 32.906799], [115.768629, 32.907287], 45],
+        [[115.768629, 32.907287], [115.836304, 32.906799], 45],
+        [[115.836304, 32.906799], [115.766949, 33.024228], 30],
+        [[115.768629, 32.907287], [115.683581, 33.01602], 3],
+        [[116.309678, 39.966884], [115.836304, 32.906799], 6],
+        [[115.766949, 33.024228], [116.309678, 39.966884], 1],
+        [[115.683581, 33.01602], [115.768629, 32.907287], 1],
+        [[115.836304, 32.906799], [116.309678, 39.966884], 6],
+        [[115.768629, 32.907287], [115.766949, 33.024228], 1],
+        [[115.766949, 33.024228], [115.768629, 32.907287], 1]
+        // ["河南省 安阳市 汤阴县 五陵镇", "河南省 鹤壁市 浚县 ", 8],
+        // ["河南省 鹤壁市 浚县 ", "河南省 安阳市 汤阴县 五陵镇", 8],
+        // ["河南省 安阳市 汤阴县 瓦岗乡", "河南省 鹤壁市 浚县 ", 1],
+        // ["河南省 鹤壁市 浚县 ", "河南省 安阳市 汤阴县 瓦岗乡", 1],
+        // ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍泉区 宁老庄镇", 43],
+        // ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍泉区 行流镇", 38],
+        // ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍泉区 中市街道", 34],
+        // ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍泉区 行流镇", 50],
+        // ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍泉区 中市街道", 46],
+        // ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍泉区 宁老庄镇", 30],
+        // ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍州区 文峰街道", 2],
+        // ["安徽省 阜阳市 颍州区 文峰街道", "安徽省 阜阳市 颍泉区 行流镇", 1],
+        // ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍州区 颍西街道", 45],
+        // ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 中市街道", 45],
+        // ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 行流镇", 3],
+        // ["安徽省 阜阳市 颍州区 文峰街道", "安徽省 阜阳市 颍泉区 中市街道", 6],
+        // ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍州区 文峰街道", 1],
+        // ["安徽省 阜阳市 颍泉区 行流镇", "安徽省 阜阳市 颍州区 颍西街道", 1],
+        // ["安徽省 阜阳市 颍泉区 宁老庄镇", "安徽省 阜阳市 颍州区 颍西街道", 1],
+        // ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍泉区 宁老庄镇", 1],
+        // ["安徽省 阜阳市 颍泉区 中市街道", "安徽省 阜阳市 颍州区 文峰街道", 6],
         // ["安徽省 阜阳市 颍州区 文峰街道", "安徽省 阜阳市 颍州区 颍西街道", 11],
         // ["安徽省 阜阳市 颍州区 颍西街道", "安徽省 阜阳市 颍州区 文峰街道", 9],
         // ["河南省 南阳市 邓州市 林扒镇", "河南省 南阳市 邓州市 陶营镇", 36],
@@ -1583,81 +1603,161 @@
         //   1
         // ]
       ];
-  
-      var randomCount = 100; // 模拟的飞线的数量
-      // alert('hello')
+
+      var citys = [
+        "长沙市",
+        "株洲市",
+        "湘潭市",
+        "衡阳市",
+        "邵阳市",
+        "岳阳市",
+        "常德市",
+        "张家界市",
+        "益阳市",
+        "郴州市",
+        "永州市",
+        "怀化市",
+        "娄底市"
+      ];
+
+      // var randomCount = 100; // 模拟的飞线的数量
       var curve = new mapvgl.BezierCurve();
       var myGeo = new BMap.Geocoder();
 
       var data = [];
       var data2 = [];
 
+      var randomCount = 100;
+
+      for (let i = 0; i < paths.length; i++) {
+        curve.setOptions({
+          //设置贝塞尔曲线的起始点和终止点
+          start: [paths[i][0][0], paths[i][0][1],],
+          end: [paths[i][1][0], paths[i][1][1]]
+        });
+        var curveModelData = curve.getPoints();
+
+        data.push({
+          //设置曲线的数据
+          geometry: {
+            type: "LineString",
+            coordinates: curveModelData
+          },
+          properties: {
+            count: Math.random()
+          }
+        });
+
+        // var flag = true;
+        // myGeo.getPoint(
+        //   paths[i][0],
+        //   function(point) {
+        //     if (point) {
+        //       var startPoint = point;
+        //       myGeo.getPoint(
+        //         paths[i][1],
+        //         function(point) {
+        //           if (point) {
+        //             var endPoint = point;
+        //             console.log(
+        //                 "[[" +
+        //               startPoint.lng +
+        //                 "," +
+        //                 startPoint.lat +
+        //                 "],[" +
+        //                 endPoint.lng +
+        //                 "," +
+        //                 endPoint.lat+"],"+paths[i][2]+"],\n"
+        //             );
+        //             if (flag) {
+        //               curve.setOptions({
+        //                 //设置贝塞尔曲线的起始点和终止点
+        //                 start: [startPoint.lng, startPoint.lat],
+        //                 end: [endPoint.lng, endPoint.lat]
+        //               });
+        //               var curveModelData = curve.getPoints();
+
+        //               data.push({
+        //                 //设置曲线的数据
+        //                 geometry: {
+        //                   type: "LineString",
+        //                   coordinates: curveModelData
+        //                 },
+        //                 properties: {
+        //                   count: Math.random()
+        //                 }
+        //               });
+        //             }
+        //           } else {
+        //             flag = false;
+        //           }
+        //         },
+        //         ""
+        //       );
+        //     } else {
+        //       flag = false;
+        //     }
+        //   },
+        //   ""
+        // );
+
+        // console.log(
+        //   startPoint.lng +
+        //     " " +
+        //     startPoint.lat +
+        //     " " +
+        //     endPoint.lng +
+        //     " " +
+        //     endPoint.lat
+        // );
+      }
+
       // 构造数据
-      for (let i = 0; i < path.length; i++) {
-        myGeo.getPoint(path[i][0], function(startPoint){
-          if (startPoint) {
-            myGeo.getPoint(path[i][1], function(endPoint){
-              if (endPoint) {
-                // alert(startPoint.lng +" "+ startPoint.lat  +" "+  endPoint.lng  +" "+  endPoint.lat);
-                curve.setOptions({
-                  //设置贝塞尔曲线的起始点和终止点
-                  start: [startPoint.lng, startPoint.lat],
-                  end: [endPoint.lng, endPoint.lat]
-                });
-                var curveModelData = curve.getPoints();
-                // alert(curveModelData);
+      while (randomCount--) {
+        var startPoint = mapv.utilCityCenter.getCenterByCityName(
+          //选择起点
+          citys[parseInt(Math.random() * citys.length, 10)]
+        );
+        var endPoint = mapv.utilCityCenter.getCenterByCityName(
+          //选择终点
+          citys[parseInt(Math.random() * citys.length, 10)]
+        );
+        // alert(startPoint.lng+" "+ startPoint.lat+" "+endPoint.lng+" "+ endPoint.lat)
+        curve.setOptions({
+          //设置贝塞尔曲线的起始点和终止点
+          start: [startPoint.lng, startPoint.lat],
+          end: [endPoint.lng, endPoint.lat]
+        });
+        var curveModelData = curve.getPoints();
 
-                data.push({
-                  //设置曲线的数据
-                  geometry: {
-                    type: "LineString",
-                    coordinates: curveModelData
-                  },
-                  properties: {
-                    count: Math.random() * 40 // 设置车辆数目
-                  }
-                });
-              }
-            }, "");
+        // data.push({
+        //   //设置曲线的数据
+        //   geometry: {
+        //     type: "LineString",
+        //     coordinates: curveModelData
+        //   },
+        //   properties: {
+        //     count: Math.random()
+        //   }
+        // });
+
+        data2.push({
+          //设置点的数据
+          geometry: {
+            type: "Point",
+            coordinates: [endPoint.lng, endPoint.lat]
+          },
+          properties: {
+            count: Math.random() * 40
           }
-        }, "");
+        });
       }
-
-      for (let i = 0; i < citys.length; i++) {
-        myGeo.getPoint(citys[i][0], function(Point){
-          if (Point) {
-            data2.push({ //设置点的数据
-              geometry: {
-                type: "Point",
-                coordinates: [Point.lng, Point.lat]
-              },
-              properties: {
-                count: Math.random() * 4000
-              }
-            });
-          }
-        }, "");
-      }
-
-
-      console.log(data)
-      console.log(data2)
-
+      console.log(data);
+      // console.log(data2);
       var view = new mapvgl.View({
         map: map
       });
 
-      
-      var flylineLayer = new mapvgl.FlyLineLayer({
-        style: "chaos",
-        step: 0.3,
-        color: "rgba(33, 242, 214, 0.3)",
-        textureColor: function(data) {
-          return data.properties.count > 0.5 ? "#ff0000" : "#56ccdd";
-        },
-        textureWidth: 32,
-        textureLength: 10
-      });
       var pointLayer = new mapvgl.PointLayer({
         blend: "lighter",
         size: function(item) {
@@ -1668,36 +1768,18 @@
       view.addLayer(pointLayer);
       pointLayer.setData(data2);
 
+      var flylineLayer = new mapvgl.FlyLineLayer({
+        style: "chaos",
+        step: 0.3,
+        color: "rgba(33, 242, 214, 0.3)",
+        textureColor: function(data) {
+          return data.properties.count > 0.5 ? "#ff0000" : "#56ccdd";
+        },
+        textureWidth: 32,
+        textureLength: 10
+      });
       view.addLayer(flylineLayer);
       flylineLayer.setData(data);
-      
-      // var flylineLayer = new mapvgl.FlyLineLayer({
-      //   style: "chaos",
-      //   step: 0.1,
-      //   color: "rgba(33, 242, 214, 0.3)",
-      //   textureColor: function(data) {
-      //     return data.properties.count > 20
-      //       ? "#ff0000"
-      //       : data.properties.count > 10
-      //       ? "#ffff00"
-      //       : "#00ff00";
-      //   },
-      //   textureWidth: 20,
-      //   textureLength: 10
-      // });
-
-      // var pointLayer = new mapvgl.PointLayer({
-      //   blend: "lighter",
-      //   size: function(item) {
-      //     return item.properties.count;
-      //   },
-      //   color: "rgba(89, 0, 179,0.6)"
-      // });
-      // view.addLayer(pointLayer);
-      // pointLayer.setData(data2);
-
-      // view.addLayer(flylineLayer);
-      // flylineLayer.setData(data);
     </script>
   </body>
 </html>

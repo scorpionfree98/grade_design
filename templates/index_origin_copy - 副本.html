@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>MapVGL</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map_container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    <script src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=7hAEn2CdZ5ICqdQDYiMBZjvTn3YNB3CA"></script>
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=7hAEn2CdZ5ICqdQDYiMBZjvTn3YNB3CA"></script>
+    <!--上线运行时需要将https://删除-->
+    <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
+    <!--上线运行时需要将https://删除-->
+    <script src="static/common.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.min.js"></script>
+    <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.41/dist/mapvgl.threelayers.min.js"></script>
+  </head>
+  <body>
+    <div id="map_container"></div>
+    <script>
+      // 6322,2363
+
+      /* global BMapGL */
+
+      /* global mapv */
+
+      /* global mapvgl */
+
+      /* global initMap */
+
+      /* global purpleStyle */
+
+      var map = initMap({
+        tilt: 30,
+        heading: 0,
+        center: [111.858773, 27.84893],
+        // 此处需要将地址改为所有点的中心
+        zoom: 8.5,
+        style: purpleStyle
+      });
+
+      var places = [[[114.593706, 35.889054], 8],[ [115.683581, 33.01602], 50]]
+      var paths = [
+
+      [[114.593706, 35.889054], [114.557608, 35.681917], 8],
+        [[114.557608, 35.681917], [114.593706, 35.889054], 8],
+        [[114.512447, 35.87143], [114.557608, 35.681917], 1],
+        [[114.557608, 35.681917], [114.512447, 35.87143], 1],
+        [[115.683581, 33.01602], [115.766949, 33.024228], 43],
+        [[115.766949, 33.024228], [115.683581, 33.01602], 38],
+        [[115.766949, 33.024228], [115.836304, 32.906799], 34],
+        [[115.836304, 32.906799], [115.683581, 33.01602], 50],
+        [[115.683581, 33.01602], [115.836304, 32.906799], 46],
+        [[116.309678, 39.966884], [115.683581, 33.01602], 1],
+        [[115.683581, 33.01602], [116.309678, 39.966884], 2],
+        [[115.836304, 32.906799], [115.768629, 32.907287], 45],
+        [[115.768629, 32.907287], [115.836304, 32.906799], 45],
+        [[115.836304, 32.906799], [115.766949, 33.024228], 30],
+        [[115.768629, 32.907287], [115.683581, 33.01602], 3],
+        [[116.309678, 39.966884], [115.836304, 32.906799], 6],
+        [[115.766949, 33.024228], [116.309678, 39.966884], 1],
+      ]
+      var citys = [
+        "长沙市",
+        "株洲市",
+        "湘潭市",
+        "衡阳市",
+        "邵阳市",
+        "岳阳市",
+        "常德市",
+        "张家界市",
+        "益阳市",
+        "郴州市",
+        "永州市",
+        "怀化市",
+        "娄底市"
+      ];
+
+      // var randomCount = 100; // 模拟的飞线的数量
+      var curve = new mapvgl.BezierCurve();
+      var myGeo = new BMap.Geocoder();
+
+      var data = [];
+      var data2 = [];
+
+      var randomCount = 100;
+
+      for (let i = 0; i < places.length; i++) {
+        data2.push({
+          //设置点的数据
+          geometry: {
+            type: "Point",
+            coordinates: places[i][0]
+          },
+          properties: {
+            count: places[i][1]
+          }
+        });
+      }
+
+      for (let i = 0; i < paths.length; i++) {
+        curve.setOptions({
+          //设置贝塞尔曲线的起始点和终止点
+          start: paths[i][0],
+          end: paths[i][1]
+        });
+        var curveModelData = curve.getPoints();
+
+        data.push({
+          //设置曲线的数据
+          geometry: {
+            type: "LineString",
+            coordinates: curveModelData
+          },
+          properties: {
+            count: Math.random()
+          }
+        });
+      }
+
+    
+      console.log(data);
+      // console.log(data2);
+      var view = new mapvgl.View({
+        map: map
+      });
+
+      var pointLayer = new mapvgl.PointLayer({
+        blend: "lighter",
+        size: function(item) {
+          return item.properties.count;
+        },
+        color: "rgba(89, 0, 179,0.6)"
+      });
+      view.addLayer(pointLayer);
+      pointLayer.setData(data2);
+
+      var flylineLayer = new mapvgl.FlyLineLayer({
+        style: "chaos",
+        step: 0.3,
+        color: "rgba(33, 242, 214, 0.3)",
+        textureColor: function(data) {
+          return data.properties.count > 0.5 ? "#ff0000" : "#56ccdd";
+        },
+        textureWidth: 32,
+        textureLength: 10
+      });
+      view.addLayer(flylineLayer);
+      flylineLayer.setData(data);
+    </script>
+  </body>
+</html>

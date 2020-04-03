@@ -1,5 +1,7 @@
-src/data2.csv
-src/data.csv
-src/D.pkl
-.vscode
-data
+/src/data2.csv
+/src/data.csv
+/src/D.pkl
+/.vscode/
+/data/
+/venv/
+/.idea/

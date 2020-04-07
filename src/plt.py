@@ -92,32 +92,3 @@ class point_lnglat:
         result = result.iloc[0]
         return result['lng'], result['lat'], True
 
-
-if __name__ == "__main__":
-    pTl = point_lnglat()
-    dpac = select_path_by_day('2019-10-28')
-    dpc = select_place_by_day('2019-10-28')
-    # print(dpac,dpc)
-
-    for i in dpac:
-        start_lng, start_lat, OK = pTl.point_to_lnglat(i['start_province'],
-                                                       i['start_city'],
-                                                       i['start_district'],
-                                                       i['start_township'])
-        if not OK:
-            continue
-        end_lng, end_lat, OK = pTl.point_to_lnglat(i['end_province'],
-                                                   i['end_city'],
-                                                   i['end_district'],
-                                                   i['end_township'])
-        if not OK:
-            continue
-        print(start_lng, start_lat, end_lng, end_lat)
-    for i in dpc:
-        lng, lat, OK = pTl.point_to_lnglat(i['province'], i['city'],
-                                           i['district'], i['township'])
-        if not OK:
-            continue
-        print(lng, lat)
-
-    # print(dpac,dpc)

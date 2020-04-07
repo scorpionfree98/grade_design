@@ -27,7 +27,7 @@ class DatabaseAccess():
             global cursor
             cursor = self.__db.cursor()
             # sql命令
-            sql = "insert into student(name,age) value(%s,%s)"
+            sql = "insert into student(name,age) values (%s,%s)"
             # 执行sql命令
             cursor.execute(sql, (names, ages))
         except Exception as e:

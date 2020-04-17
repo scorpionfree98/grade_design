@@ -27,10 +27,10 @@
           <span></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{{ url_for('index') }}">
             <i class="mdi mdi-view-quilt menu-icon"></i>
             <span class="menu-title">控制面板</span>
-            <div class="badge badge-info badge-pill">2</div>
+{#            <div class="badge badge-info badge-pill">2</div>#}
           </a>
         </li>
         <li class="nav-item sidebar-category">
@@ -56,166 +56,17 @@
             <span class="menu-title">标题项</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('mapIndex') }}">
+            <i class="mdi mdi-view-headline menu-icon"></i>
+            <span class="menu-title">地图</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:./partials/_navbar.html -->
-      <nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
-        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="mdi mdi-menu"></span>
-          </button>
-          <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
-          </div>
-          <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Welcome back, Brandon Haynes</h4>
-          <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item">
-              <h4 class="mb-0 font-weight-bold d-none d-xl-block">Mar 12, 2019 - Apr 10, 2019</h4>
-            </li>
-            <li class="nav-item dropdown mr-1">
-              <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-calendar mx-0"></i>
-                <span class="count bg-info">2</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                      <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                    </h6>
-                    <p class="font-weight-light small-text text-muted mb-0">
-                      The meeting is cancelled
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                      <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                    </h6>
-                    <p class="font-weight-light small-text text-muted mb-0">
-                      New product launch
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                      <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                  </div>
-                  <div class="preview-item-content flex-grow">
-                    <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                    </h6>
-                    <p class="font-weight-light small-text text-muted mb-0">
-                      Upcoming board meeting
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-            <li class="nav-item dropdown mr-2">
-              <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i class="mdi mdi-email-open mx-0"></i>
-                <span class="count bg-danger">1</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-success">
-                      <i class="mdi mdi-information mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Just now
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
-                      <i class="mdi mdi-settings mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      Private message
-                    </p>
-                  </div>
-                </a>
-                <a class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="mdi mdi-account-box mx-0"></i>
-                    </div>
-                  </div>
-                  <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                    <p class="font-weight-light small-text mb-0 text-muted">
-                      2 days ago
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </li>
-          </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="mdi mdi-menu"></span>
-          </button>
-        </div>
-        <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
-          <ul class="navbar-nav mr-lg-2">
-            <li class="nav-item nav-search d-none d-lg-block">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search">
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="images/faces/face5.jpg" alt="profile"/>
-                <span class="nav-profile-name">Eleanor Richardson</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item">
-                  <i class="mdi mdi-settings text-primary"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item">
-                  <i class="mdi mdi-logout text-primary"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link icon-link">
-                <i class="mdi mdi-plus-circle-outline"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link icon-link">
-                <i class="mdi mdi-web"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link icon-link">
-                <i class="mdi mdi-clock-outline"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -325,7 +176,7 @@
                     <div class="card-body pb-0">
                       <div class="d-flex align-items-center mb-4">
                         <p class="card-title mb-0 mr-1">Today activity</p>
-                        <div class="badge badge-info badge-pill">2</div>
+{#                        <div class="badge badge-info badge-pill">2</div>#}
                       </div>
                       <div class="d-flex flex-wrap pt-2">
                         <div class="mr-4 mb-lg-2 mb-xl-0">
@@ -546,64 +397,64 @@
             </div>
           </div>
           <!-- row end -->
-          <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card bg-facebook d-flex align-items-center">
-                <div class="card-body py-5">
-                  <div
-                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                    <i class="mdi mdi-facebook text-white icon-lg"></i>
-                    <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">2.62 Subscribers</h5>
-                      <p class="mt-2 text-white card-text">You main list growing</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card bg-google d-flex align-items-center">
-                <div class="card-body py-5">
-                  <div
-                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                    <i class="mdi mdi-google-plus text-white icon-lg"></i>
-                    <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">3.4k Followers</h5>
-                      <p class="mt-2 text-white card-text">You main list growing</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-              <div class="card bg-twitter d-flex align-items-center">
-                <div class="card-body py-5">
-                  <div
-                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
-                    <i class="mdi mdi-twitter text-white icon-lg"></i>
-                    <div class="ml-3 ml-md-0 ml-xl-3">
-                      <h5 class="text-white font-weight-bold">3k followers</h5>
-                      <p class="mt-2 text-white card-text">You main list growing</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+{#          <div class="row">#}
+{#            <div class="col-md-4 grid-margin stretch-card">#}
+{#              <div class="card bg-facebook d-flex align-items-center">#}
+{#                <div class="card-body py-5">#}
+{#                  <div#}
+{#                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">#}
+{#                    <i class="mdi mdi-facebook text-white icon-lg"></i>#}
+{#                    <div class="ml-3 ml-md-0 ml-xl-3">#}
+{#                      <h5 class="text-white font-weight-bold">2.62 Subscribers</h5>#}
+{#                      <p class="mt-2 text-white card-text">You main list growing</p>#}
+{#                    </div>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
+{#            <div class="col-md-4 grid-margin stretch-card">#}
+{#              <div class="card bg-google d-flex align-items-center">#}
+{#                <div class="card-body py-5">#}
+{#                  <div#}
+{#                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">#}
+{#                    <i class="mdi mdi-google-plus text-white icon-lg"></i>#}
+{#                    <div class="ml-3 ml-md-0 ml-xl-3">#}
+{#                      <h5 class="text-white font-weight-bold">3.4k Followers</h5>#}
+{#                      <p class="mt-2 text-white card-text">You main list growing</p>#}
+{#                    </div>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
+{#            <div class="col-md-4 grid-margin stretch-card">#}
+{#              <div class="card bg-twitter d-flex align-items-center">#}
+{#                <div class="card-body py-5">#}
+{#                  <div#}
+{#                    class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">#}
+{#                    <i class="mdi mdi-twitter text-white icon-lg"></i>#}
+{#                    <div class="ml-3 ml-md-0 ml-xl-3">#}
+{#                      <h5 class="text-white font-weight-bold">3k followers</h5>#}
+{#                      <p class="mt-2 text-white card-text">You main list growing</p>#}
+{#                    </div>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
           </div>
           <!-- row end -->
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:./partials/_footer.html -->
-        <footer class="footer">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">
-                <p class="text-center text-sm-left d-block d-sm-inline-block mb-0">Copyright © 2019 Urbanui. All rights reserved.</p>
-                <p class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center mb-0">More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-              </div>
-            </div>
-          </div>
-        </footer>
+{#        <footer class="footer">#}
+{#          <div class="card">#}
+{#            <div class="card-body">#}
+{#              <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">#}
+{#                <p class="text-center text-sm-left d-block d-sm-inline-block mb-0">Copyright © 2019 Urbanui. All rights reserved.</p>#}
+{#                <p class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center mb-0">More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </footer>#}
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

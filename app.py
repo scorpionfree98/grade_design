@@ -11,7 +11,7 @@ app.register_blueprint(map_blu)
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html')
 
 
@@ -23,6 +23,11 @@ def login():
 @app.route('/register')
 def register():
     return render_template('register.html')
+
+
+@app.route('/mapindex')
+def mapIndex():
+    return render_template('map_index.html')
 
 
 if __name__ == '__main__':

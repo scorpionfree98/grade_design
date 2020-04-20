@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>农机大数据平台</title>
-    <!-- base:css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='vendors/mdi/css/materialdesignicons.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='vendors/css/vendor.bundle.base.css') }}">
-    <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.png') }}"/>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}-地图选择{% endblock %}
+{% block head %}
+{% endblock %}
+{% block main %}
 <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -78,63 +63,28 @@
                             <div class="card-body">
                                 <h4 class="card-title">当前数据库中的日期</h4>
 								<div class="table-responsive">
-									<table class="table table-hover">
+									<table class="table table-striped">
 									  <thead>
-										<tr>
+										<tr align="center">
 										  <th>年</th>
 										  <th>月</th>
 										  <th>日</th>
-										  <th>车辆数</th>
+										  <th>轨迹数</th>
+										  <th>查看</th>
 										</tr>
 									  </thead>
 									  <tbody>
-										<tr>
-										  <td>Jacob</td>
-										  <td>Photoshop</td>
-										  <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-										  <td><label class="badge badge-danger">Pending</label></td>
+                                      {% for line in result %}
+										<tr align="center" >
+										  <td>{{ line[0] }}</td>
+										  <td>{{ line[1] }}</td>
+										  <td>{{ line[2] }}</td>
+										  <td>{{ line[3] }}</td>
+										  <td><a href="{{ url_for('map.MyMap',date = line[0]|string+'-'+line[1]|string+'-'+line[2]|string) }}"> <button  class="btn btn-link">查询</button> </a></td>
+
 										</tr>
+                                      {%  endfor %}
 									  </tbody>
-{#                                      <thead>#}
-{#										<tr>#}
-{#										  <th>User</th>#}
-{#										  <th>Product</th>#}
-{#										  <th>Sale</th>#}
-{#										  <th>Status</th>#}
-{#										</tr>#}
-{#									  </thead>#}
-{#									  <tbody>#}
-{#										<tr>#}
-{#										  <td>Jacob</td>#}
-{#										  <td>Photoshop</td>#}
-{#										  <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>#}
-{#										  <td><label class="badge badge-danger">Pending</label></td>#}
-{#										</tr>#}
-{#										<tr>#}
-{#										  <td>Messsy</td>#}
-{#										  <td>Flash</td>#}
-{#										  <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i></td>#}
-{#										  <td><label class="badge badge-warning">In progress</label></td>#}
-{#										</tr>#}
-{#										<tr>#}
-{#										  <td>John</td>#}
-{#										  <td>Premier</td>#}
-{#										  <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i></td>#}
-{#										  <td><label class="badge badge-info">Fixed</label></td>#}
-{#										</tr>#}
-{#										<tr>#}
-{#										  <td>Peter</td>#}
-{#										  <td>After effects</td>#}
-{#										  <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i></td>#}
-{#										  <td><label class="badge badge-success">Completed</label></td>#}
-{#										</tr>#}
-{#										<tr>#}
-{#										  <td>Dave</td>#}
-{#										  <td>53275535</td>#}
-{#										  <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i></td>#}
-{#										  <td><label class="badge badge-warning">In progress</label></td>#}
-{#										</tr>#}
-{#									  </tbody>#}
 									</table>
 								  </div>
                             </div>
@@ -148,10 +98,10 @@
                                 <p class="card-description">
                                     输入年月日后，即可查看当日地图
                                 </p>
-                                <form class="forms-sample">
+                                <form class="forms-sample" action="{{ url_for('map.tempMap') }}" method="post" onclick="OnSubmit">
                                     <div class="form-group">
                                         <label for="datepicker">请选择日期</label>
-                                        <input type="date" class="form-control" id="datepicker">
+                                        <input type="date" class="form-control" id="datepicker" name="datepicker" >
                                     </div>
                                     <button type="submit" class="btn btn-primary mr-2">查询</button>
                                     <button type="reset" class="btn btn-light">清空</button>
@@ -170,20 +120,15 @@
     </div>
     <!-- page-body-wrapper ends -->
 </div>
-<!-- container-scroller -->
-<!-- base:js -->
-<script src="../../vendors/js/vendor.bundle.base.js"></script>
-<!-- endinject -->
-<!-- inject:js -->
-<script src="../../js/off-canvas.js"></script>
-<script src="../../js/hoverable-collapse.js"></script>
-<script src="../../js/template.js"></script>
-<!-- endinject -->
-<!-- plugin js for this page -->
-<!-- End plugin js for this page -->
-<!-- Custom js for this page-->
-<script src="../../js/file-upload.js"></script>
-<!-- End custom js for this page-->
-</body>
 
-</html>
+<script>
+    function OnSubmit() {
+        {#var errorinfo = $('#label_error');#}
+        if ($('#datepicker').val() == '') {
+            {#errorinfo.html('登录邮箱不能为空');#}
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock %}

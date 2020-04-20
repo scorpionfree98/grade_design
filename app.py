@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from db import get_path_count_daily_list
 import pandas as pd
 import requests
 import os
@@ -27,7 +28,12 @@ def register():
 
 @app.route('/mapindex')
 def mapIndex():
-    return render_template('map_index.html')
+    result_fromsql = get_path_count_daily_list()
+    # print(result)
+    result_toweb = []
+    for i in result_fromsql:        
+        result_toweb.append([i['date'].year,i['date'].month,i['date'].day,i['count(`date`)']])
+    return render_template('map_index.html',result=result_toweb)
 
 
 if __name__ == '__main__':

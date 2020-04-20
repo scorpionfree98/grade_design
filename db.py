@@ -29,6 +29,7 @@ def sql_required(func):
     :param func: 函数形式
     :return:装饰器
     """
+
     def decorate(*args, **kwargs):
         try:
             conn, cursor = connect()
@@ -55,7 +56,7 @@ def change_place_to_lnglat(province, city, district, township, conn="", cursor="
     :param township:
     :return:lng,lat：返回经度纬度
     """
-    sql = "select `lng`, `lat` from `place_lnglat` "\
+    sql = "select `lng`, `lat` from `place_lnglat` " \
           " where `province` = %s and `city` = %s and `district` = %s and `township` = %s "
     args = (province, city, district, township)
     cursor.execute(sql, args)
@@ -74,8 +75,8 @@ def insert_place_to_lnglat(province, city, district, township, lng, lat, conn=""
     :param township:
     :return:lng,lat：返回经度纬度
     """
-    sql = "insert into place_lnglat(`province`, `city`, `district`, `township`,`lng`, `lat` )"\
-        " values (%s,%s,%s,%s,%s,%s)"
+    sql = "insert into place_lnglat(`province`, `city`, `district`, `township`,`lng`, `lat` )" \
+          " values (%s,%s,%s,%s,%s,%s)"
     args = (province, city, district, township, lng, lat)
     cursor.execute(sql, args)
 
@@ -105,8 +106,8 @@ def select_path_by_day(date, conn="", cursor=""):
     :param cursor:
     :return:起止地点，计数
     """
-    sql = "select `start_province`, `start_city`, `start_district`, `start_township`, `end_province`, "\
-          "`end_city`, `end_district`, `end_township`, `count` from `beidou_dev`.`daily_path_count`"\
+    sql = "select `start_province`, `start_city`, `start_district`, `start_township`, `end_province`, " \
+          "`end_city`, `end_district`, `end_township`, `count` from `beidou_dev`.`daily_path_count`" \
           " where `date` = %s "
     args = date
     cursor.execute(sql, args)
@@ -123,11 +124,36 @@ def select_place_by_day(date, conn="", cursor=""):
     :param cursor:
     :return:地点，计数
     """
-    sql = "select `province`, `city`, `district`, `township`, `count`"\
-          " from `beidou_dev`.`daily_place_count`"\
+    sql = "select `province`, `city`, `district`, `township`, `count`" \
+          " from `beidou_dev`.`daily_place_count`" \
           " where `date` = %s "
     args = date
     cursor.execute(sql, args)
     answers = cursor.fetchall()
     return answers
 
+
+@sql_required
+def get_path_count_daily_list(conn="", cursor=""):
+    sql = "select `date`, count(`date`) from `daily_path_count` group by `date`"
+    cursor.execute(sql)
+    answer = cursor.fetchall()
+    return answer
+
+
+@sql_required
+def get_pre_path_place_by_day(date, conn="", cursor=""):
+    sql = "select  `date`,`dpc_result`,`dpac_result` from `daily_place_result` " \
+          " where `date` = %s "
+    args = date
+    cursor.execute(sql, args)
+    answer = cursor.fetchone()
+    return answer
+
+
+@sql_required
+def insert_pre_path_place_by_day(date, dpac_result, dpc_result, conn="", cursor=""):
+    sql = "insert into  `daily_place_result` (`date`,`dpc_result`,`dpac_result` ) " \
+          "values (%s,%s,%s) "
+    args = (date, dpc_result, dpac_result)
+    cursor.execute(sql, args)

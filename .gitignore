@@ -8,3 +8,5 @@
 /__pycache__/
 /src/part/__pycache__/
 
+*.pyc
+src/__pycache__/map.cpython-37.pyc

@@ -3,57 +3,9 @@
 {% block head %}
 {% endblock %}
 {% block main %}
-  <div class="container-scroller d-flex">
-    <!-- partial:./partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-      <ul class="nav">
-        <li class="nav-item sidebar-category">
-          <p>导航</p>
-          <span></span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('index') }}">
-            <i class="mdi mdi-view-quilt menu-icon"></i>
-            <span class="menu-title">控制面板</span>
-{#            <div class="badge badge-info badge-pill">2</div>#}
-          </a>
-        </li>
-        <li class="nav-item sidebar-category">
-          <p>功能</p>
-          <span></span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <i class="mdi mdi-palette menu-icon"></i>
-            <span class="menu-title">折叠标题</span>
-            <i class="menu-arrow"></i>
-          </a>
-          <div class="collapse" id="ui-basic">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="#">折叠子项1</a></li>
-              <li class="nav-item"> <a class="nav-link" href="#">折叠子项2</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="mdi mdi-view-headline menu-icon"></i>
-            <span class="menu-title">标题项</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('mapIndex') }}">
-            <i class="mdi mdi-view-headline menu-icon"></i>
-            <span class="menu-title">地图</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
       <!-- partial:./partials/_navbar.html -->
       <!-- partial -->
-      <div class="main-panel">
+      
         <div class="content-wrapper">
           <div class="row">
             <div class="col-12 col-xl-6 grid-margin stretch-card">
@@ -441,9 +393,6 @@
 {#          </div>#}
 {#        </footer>#}
         <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
+    
+  
   {% endblock %}

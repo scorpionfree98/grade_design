@@ -3,123 +3,68 @@
 {% block head %}
 {% endblock %}
 {% block main %}
-<div class="container-scroller d-flex">
-    <!-- partial:./partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-            <li class="nav-item sidebar-category">
-                <p>导航</p>
-                <span></span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('index') }}">
-                    <i class="mdi mdi-view-quilt menu-icon"></i>
-                    <span class="menu-title">控制面板</span>
-                    {#            <div class="badge badge-info badge-pill">2</div>#}
-                </a>
-            </li>
-            <li class="nav-item sidebar-category">
-                <p>功能</p>
-                <span></span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
-                   aria-controls="ui-basic">
-                    <i class="mdi mdi-palette menu-icon"></i>
-                    <span class="menu-title">折叠标题</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="ui-basic">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="#">折叠子项1</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">折叠子项2</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="mdi mdi-view-headline menu-icon"></i>
-                    <span class="menu-title">标题项</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('mapIndex') }}">
-                    <i class="mdi mdi-view-headline menu-icon"></i>
-                    <span class="menu-title">地图</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-        <!-- partial:./partials/_navbar.html -->
-        <!-- partial -->
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="row">
 
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">当前数据库中的日期</h4>
-								<div class="table-responsive">
-									<table class="table table-striped">
-									  <thead>
-										<tr align="center">
-										  <th>年</th>
-										  <th>月</th>
-										  <th>日</th>
-										  <th>轨迹数</th>
-										  <th>查看</th>
-										</tr>
-									  </thead>
-									  <tbody>
-                                      {% for line in result %}
-										<tr align="center" >
-										  <td>{{ line[0] }}</td>
-										  <td>{{ line[1] }}</td>
-										  <td>{{ line[2] }}</td>
-										  <td>{{ line[3] }}</td>
-										  <td><a href="{{ url_for('map.MyMap',date = line[0]|string+'-'+line[1]|string+'-'+line[2]|string) }}"> <button  class="btn btn-link">查询</button> </a></td>
+<div class="content-wrapper">
+    <div class="row">
 
-										</tr>
-                                      {%  endfor %}
-									  </tbody>
-									</table>
-								  </div>
-                            </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">当前数据库中的日期</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr align="center">
+                                <th>年</th>
+                                <th>月</th>
+                                <th>日</th>
+                                <th>轨迹数</th>
+                                <th>查看</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for line in result %}
+                            <tr align="center" >
+                                <td>{{ line[0] }}</td>
+                                <td>{{ line[1] }}</td>
+                                <td>{{ line[2] }}</td>
+                                <td>{{ line[3] }}</td>
+                                <td><a href="{{ url_for('map.MyMap',date = line[0]|string+'-'+line[1]|string+'-'+line[2]|string) }}"> <button  class="btn btn-link">查询</button> </a></td>
+
+                            </tr>
+                            {%  endfor %}
+                            </tbody>
+                        </table>
                         </div>
-                    </div>
-
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">查询某一天的地图情况</h4>
-                                <p class="card-description">
-                                    输入年月日后，即可查看当日地图
-                                </p>
-                                <form class="forms-sample" action="{{ url_for('map.tempMap') }}" method="post" onclick="OnSubmit">
-                                    <div class="form-group">
-                                        <label for="datepicker">请选择日期</label>
-                                        <input type="date" class="form-control" id="datepicker" name="datepicker" >
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mr-2">查询</button>
-                                    <button type="reset" class="btn btn-light">清空</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:../../partials/_footer.html -->
-
-            <!-- partial -->
         </div>
-        <!-- main-panel ends -->
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">查询某一天的地图情况</h4>
+                    <p class="card-description">
+                        输入年月日后，即可查看当日地图
+                    </p>
+                    <form class="forms-sample" action="{{ url_for('map.tempMap') }}" method="post" onclick="OnSubmit">
+                        <div class="form-group">
+                            <label for="datepicker">请选择日期</label>
+                            <input type="date" class="form-control" id="datepicker" name="datepicker" >
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">查询</button>
+                        <button type="reset" class="btn btn-light">清空</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- page-body-wrapper ends -->
 </div>
+<!-- content-wrapper ends -->
+<!-- partial:../../partials/_footer.html -->
+
+<!-- partial -->
+
 
 <script>
     function OnSubmit() {

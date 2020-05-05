@@ -8,11 +8,19 @@ def connect():
     设置连接数据库的参数和连接数据库的因素
     :return:连接数据库的连接和游标
     """
+    config2 = {
+        'host': '47.95.194.176',
+        'port': 13316,
+        'user': 'beidou',
+        'passwd': 'beidou123',
+        'charset': 'utf8',
+        'cursorclass': pymysql.cursors.DictCursor  # 将结果作为字典返回游标
+    }
     config = {
         'host': 'cn-sq-yd.sakurafrp.com',
         'port': 48444,
-        'user': 'dev',
-        'passwd': '123456',
+        'user': 'beidou',
+        'passwd': 'beidou123',
         'charset': 'utf8',
         'cursorclass': pymysql.cursors.DictCursor  # 将结果作为字典返回游标
     }
@@ -32,6 +40,7 @@ def sql_required(func):
 
     def decorate(*args, **kwargs):
         try:
+            conn, cursor = None, None
             conn, cursor = connect()
             result = func(*args, **kwargs, conn=conn, cursor=cursor)
         except Exception as e:
@@ -39,8 +48,10 @@ def sql_required(func):
             logging.error(str(e))
             print(str(e))
         finally:
-            cursor.close()
-            conn.close()
+            if cursor is not None:
+                cursor.close()
+            if conn is not None:
+                conn.close()
             return result
 
     return decorate

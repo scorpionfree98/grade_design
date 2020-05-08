@@ -16,6 +16,16 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
+
+@app.route('/temp')
+def temp():
+    return render_template('temp.html')
+
+
 @app.route('/login')
 def login():
     return render_template('login.html')

@@ -9,4 +9,4 @@
 /src/part/__pycache__/
 
 *.pyc
-src/__pycache__/map.cpython-37.pyc
+/src/__pycache__/*

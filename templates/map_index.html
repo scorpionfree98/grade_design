@@ -60,20 +60,20 @@
         </div>
     </div>
 </div>
-<!-- content-wrapper ends -->
-<!-- partial:../../partials/_footer.html -->
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
 
-<!-- partial -->
+    <!-- partial -->
 
 
-<script>
-    function OnSubmit() {
-        {#var errorinfo = $('#label_error');#}
-        if ($('#datepicker').val() == '') {
-            {#errorinfo.html('登录邮箱不能为空');#}
-            return false;
+    <script>
+        function OnSubmit() {
+            //{#var errorinfo = $('#label_error');#}
+            if ($('#datepicker').val() == '') {
+                // {#errorinfo.html('登录邮箱不能为空');#}
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>
 {% endblock %}

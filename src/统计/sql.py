@@ -1,5 +1,7 @@
 import pymysql
 import logging
+import pandas as pd
+from sqlalchemy import create_engine
 
 
 # 数据库连接
@@ -137,10 +139,6 @@ def select_day_car(day,conn="", cursor=""):
 
 
 
-
-# query_total_car_num()
-# query_day()
-
 def find_daily_car():
     days = query_day()
     result = []
@@ -157,21 +155,50 @@ def find_daily_car():
 
 def find_daily_place_car():
     days = query_day()
-    provinces = query_province()
-    result = []
+    cal_engine = create_engine(
+        'mysql+pymysql://dev:123456@cn-sq-yd.sakurafrp.com:48444/beidou_cal')
     for i in days:
-        for j in provinces:
-            time = i['time']
-            province = j['province']
-            carnum = query_day_car_num_active(time,province)
-            result.append([province,time, carnum['car_num']])
+        time = i['time']
+        df = pd.DataFrame(select_day_car(time))
+        df = pd.read_pickle('D:\\Users\\Scorpion\\Desktop\\data_cal_2019-06-12.pkl')
+        result = pd.DataFrame(df.groupby(by='province').nunique())
+        result = result.drop(['province'], axis=1)
+        result['province'] = result.index
+        result = result.append(
+            {
+                'province': '全国',
+                'device_num': result['device_num'].sum()
+            },
+            ignore_index=True)
+        result['date'] = time
+        # result.to_csv('a.csv')
+        result.to_sql('data_cal', con=cal_engine, if_exists='append', index=False)
 
 
 # find_daily_car()
 # print(query_province())
-select_day_car('2019-06-12')
-import pandas as pd
-df = pd.DataFrame(select_day_car('2019-06-12'))
+# select_day_car('2019-06-12')
+# df = pd.DataFrame(select_day_car('2019-06-12'))
 
-df.to_csv('data_cal_2019-06-12.csv', index=False)
-df.to_pickle('data_cal_2019-06-12.pkl')
+# df.to_csv('data_cal_2019-06-12.csv', index=False)
+# df.to_pickle('data_cal_2019-06-12.pkl')
+
+find_daily_place_car()
+
+
+# cal_engine = create_engine(
+#     'mysql+pymysql://dev:123456@cn-sq-yd.sakurafrp.com:48444/beidou_cal')
+# df = pd.read_pickle('D:\\Users\\Scorpion\\Desktop\\data_cal_2019-06-12.pkl')
+# result = pd.DataFrame(df.groupby(by='province').nunique())
+# result = result.drop(['province'], axis=1)
+# result['province'] = result.index
+
+# result = result.append(
+#     {
+#         'province': '全国',
+#         'device_num': result['device_num'].sum()
+#     },
+#     ignore_index=True)
+# result['date'] = '2019-06-12'
+# result.to_csv('a.csv')
+# result.to_sql('data_cal', con=cal_engine, if_exists='append', index=False)

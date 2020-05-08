@@ -52,6 +52,7 @@ def sql_required(func):
 @sql_required
 def query_total_car_num(conn="", cursor=""):
     """
+    返回所有车的数量
     """
     conn.select_db('beidou_dev')
     sql = "select COUNT(distinct `device_num`) from `device_position_infomation` "
@@ -65,6 +66,7 @@ def query_total_car_num(conn="", cursor=""):
 @sql_required
 def query_day_car_num_active(day, conn="", cursor=""):
     """
+    返回某天活跃车辆数量
     """
     conn.select_db('beidou_dev')
     sql = "select COUNT(distinct `device_num`) as `car_num` " \
@@ -79,6 +81,7 @@ def query_day_car_num_active(day, conn="", cursor=""):
 @sql_required
 def query_day_place_car_num_active(day, place, conn="", cursor=""):
     """
+    返回某天某地活跃车的数量
     """
     conn.select_db('beidou_dev')
     sql = "select COUNT(distinct `device_num`) as `car_num` " \
@@ -93,11 +96,11 @@ def query_day_place_car_num_active(day, place, conn="", cursor=""):
 @sql_required
 def query_day(conn="", cursor=""):
     """
+    返回数据库中天的数量类型
     """
     conn.select_db('beidou_dev')
     sql = "select distinct(`time`) " \
-          "from `daily_car` " \
- \
+          "from `daily_car` " 
     # args = (province, city, district, township)s
     cursor.execute(sql)
     answer = cursor.fetchall()
@@ -108,16 +111,31 @@ def query_day(conn="", cursor=""):
 @sql_required
 def query_province(conn="", cursor=""):
     """
+    返回数据库中省份的类型
     """
     conn.select_db('beidou_dev')
-    sql = "select distinct(`province`) " \
-          "from `daily_province_car` " \
- \
+    sql = "select distinct(`province`) as `province`" \
+          "from `daily_province_car` "
     # args = (province, city, district, township)s
     cursor.execute(sql)
     answer = cursor.fetchall()
     # print(answer)
     return answer
+
+@sql_required
+def select_day_car(day,conn="", cursor=""):   
+    """
+    返回某天的身份 车辆记录
+    """ 
+    conn.select_db('beidou_dev')
+    sql = "select  `device_num`,`province`  from `daily_province_car` where `time` = %s;"
+    args = (day)
+    cursor.execute(sql, args)
+    answer = cursor.fetchall()
+    # print(answer)
+    return answer
+
+
 
 
 # query_total_car_num()
@@ -129,7 +147,7 @@ def find_daily_car():
     for i in days:
         time = i['time']
         carnum = query_day_car_num_active(time)
-        result.append([time, carnum['car_num']])
+        result.append([time,carnum['car_num']])
     print(result)
     import pandas as pd
     result = pd.DataFrame(result)
@@ -139,11 +157,21 @@ def find_daily_car():
 
 def find_daily_place_car():
     days = query_day()
+    provinces = query_province()
     result = []
     for i in days:
-        time = i['time']
-        carnum = query_day_car_num_active(time)
-        result.append([time, carnum['car_num']])
+        for j in provinces:
+            time = i['time']
+            province = j['province']
+            carnum = query_day_car_num_active(time,province)
+            result.append([province,time, carnum['car_num']])
 
 
-find_daily_car()
+# find_daily_car()
+# print(query_province())
+select_day_car('2019-06-12')
+import pandas as pd
+df = pd.DataFrame(select_day_car('2019-06-12'))
+
+df.to_csv('data_cal_2019-06-12.csv', index=False)
+df.to_pickle('data_cal_2019-06-12.pkl')

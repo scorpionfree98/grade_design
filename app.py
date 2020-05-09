@@ -1,19 +1,22 @@
 from flask import Flask, render_template
-from db import get_path_count_daily_list
+from db import get_path_count_daily_list,get_daily_place_active
 import pandas as pd
 import requests
 import os
 
 from src.map import map_blu
+from src.data_show import data_blu
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 app.register_blueprint(map_blu)
+app.register_blueprint(data_blu)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    result = get_daily_place_active('全国')
+    return render_template('index.html',result = result)
 
 
 @app.route('/test')
@@ -47,4 +50,5 @@ def mapIndex():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
+

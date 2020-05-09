@@ -24,16 +24,30 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
               <li class="nav-item sidebar-category">
-                  <p>导航</p>
+                  <p>数据查看</p>
                   <span></span>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('index') }}">
-                      <i class="mdi mdi-view-quilt menu-icon"></i>
-                      <span class="menu-title">控制面板</span>
+                      <i class="mdi mdi-view-headline menu-icon"></i>
+                      <span class="menu-title">全国数据</span>
                       {#            <div class="badge badge-info badge-pill">2</div>#}
                   </a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('data.province') }}">
+                      <i class="mdi mdi-view-headline menu-icon"></i>
+                      <span class="menu-title">省份数据</span>
+                      {#            <div class="badge badge-info badge-pill">2</div>#}
+                  </a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('mapIndex') }}">
+                    <i class="mdi mdi-view-headline menu-icon"></i>
+                    <span class="menu-title">每日地图</span>
+                </a>
+                </li>
               <li class="nav-item sidebar-category">
                   <p>功能</p>
                   <span></span>

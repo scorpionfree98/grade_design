@@ -20,7 +20,7 @@ def tempMap():
             return redirect(url_for('mapIndex'))
         # print(request.form, datepicker, type(datepicker))
         else:
-            print(request.form, datepicker, type(datepicker))
+            # print(request.form, datepicker, type(datepicker))
             return redirect(url_for('map.MyMap', date=datepicker))
 
 

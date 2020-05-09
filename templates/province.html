@@ -1,0 +1,183 @@
+{% extends 'base.html' %} {% block title %}-首页{% endblock %} {% block head %}
+{% endblock %} {% block main %}
+
+<div class="content-wrapper">
+  <div class="row">
+    <div
+      class="col-lg-12 col-xs-12 col-sm-12 col-md-12 grid-margin stretch-card"
+    >
+      <div class="card" id="province-title">
+        <div class="card-body">
+          <h4 class="card-title">各省数据</h4>
+          <p class="card-description">请选择省份</p>
+          <div class="table-responsive">
+            <table class="table" style="vertical-align: middle;">
+              <!-- <thead>
+                <tr>
+                  <th>Profile</th>
+                  <th>VatNo.</th>
+                  <th>Created</th>
+                  <th>Status</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <tr>
+                  {% for i in provinces %} {% if i['province'] != "[]" %}
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-link btn-fw province"
+                      onclick=""
+                    >
+                      {{ i['province'] }}
+                    </button>
+                  </td>
+                  {% if loop.index % 5 == 0 %}
+                </tr>
+                <tr>
+                  {% endif %} {% endif %} {% endfor%}
+
+                  <!-- <td>
+                    <button
+                      name="anhui"
+                      type="button"
+                      class="btn btn-link btn-fw province"
+                      onclick=""
+                    >
+                      安徽省
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      name="shanghai"
+                      type="button"
+                      class="btn btn-link btn-fw province"
+                      onclick=""
+                    >
+                      上海市
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      name="shanxi"
+                      type="button"
+                      class="btn btn-link btn-fw province"
+                      onclick=""
+                    >
+                      山西省
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      name="shandong"
+                      type="button"
+                      class="btn btn-link btn-fw province"
+                      onclick=""
+                    >
+                      山东省
+                    </button>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-lg-12 col-xs-12 col-sm-12 col-md-12 grid-margin stretch-card"
+    >
+      
+      <div class="card" id="result" hidden>
+        <button
+        type="button"
+        class="btn btn-outline-info btn-fw"
+        onclick="back()"
+      >
+        返回
+      </button>
+        <div class="card-body">
+          <h4 class="card-title">
+            <span id="second-title">全国</span>每日农机活跃数量
+          </h4>
+          <!-- <p class="card-description">Add class <code>.table</code></p> -->
+          <div class="table-responsive">
+            <table
+              class="table table-striped"
+              style="vertical-align: middle; text-align: center;"
+            >
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>日期</th>
+                  <th>活跃数量（台）</th>
+                </tr>
+              </thead>
+              <tbody id="table-result">
+                <tr>
+                  <td>2019-10-10</td>
+                  <td>4303</td>
+                </tr>
+                <tr>
+                  <td>2019-10-10</td>
+                  <td>4303</td>
+                </tr>
+                <tr>
+                  <td>2019-10-10</td>
+                  <td>4303</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- base:js -->
+<script src="{{ url_for('static',filename='/js/jquery-3.5.1.min.js') }}"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var p = $(".province");
+    for (var i = 0; i < p.length; i++) {
+      // alert(p[i]);
+      p[i].onclick = function () {
+        // alert(this.name + this.innerText);
+        $("#second-title").html($.trim(this.innerHTML));
+        $("#province-title").attr("hidden", true);
+        $("#result").removeAttr("hidden");
+        $("#table-result").empty();
+        // console.log($.trim(this.innerHTML));
+        $.ajax({
+          url: "/data",
+          async: true,
+          data: { province: $.trim(this.innerHTML) },
+          success: function (result) {
+            $("#table-result").empty(); //清空resText里面的所有内容
+            var html = "";
+            console.log(result);
+            $.each($.parseJSON(result), function (Index, content) {
+              console.log(content);
+              html +=
+                "<tr><td>" +
+                content["province"] +
+                "</td><td>" +
+                content["date"] +
+                "</td><td>" +
+                content["nums"] +
+                "</td></tr>";
+            });
+            $("#table-result").html(html);
+          },
+        });
+      };
+      // console.log(p[i].name);
+    }
+  });
+
+  function back() {
+    $("#result").attr("hidden", true);
+    $("#province-title").removeAttr("hidden");
+  }
+</script>
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
-from db import get_daily_place_active,get_province
+from db import get_daily_place_active,get_province,get_daily_province_in,get_daily_province_out
 import json
 data_blu = Blueprint('data', __name__)
 
@@ -27,6 +27,8 @@ def data():
     else:
         # print(request.form, datepicker, type(datepicker))
         date_result = get_daily_place_active(province)
+        in_result = get_daily_province_in(province)
+        out_result = get_daily_province_out(province)
         # print(date_result)
         # data_temp = []
         # for i in date_result:

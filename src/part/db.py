@@ -195,7 +195,7 @@ def insert_pre_path_place_by_day(date,
 @sql_required
 def get_daily_place_active(province, conn="", cursor=""):
     conn.select_db('beidou_cal')
-    sql = "select  `province`, `date`,`device_num` as `nums` from `daily_active_count` " \
+    sql = "select  `province`,date_format(`date`, '%%Y-%%m-%%d') as `date`,`device_num` as `nums` from `daily_active_count` " \
           " where `province` = %s "
     args = province
     cursor.execute(sql, args)
@@ -243,6 +243,5 @@ def get_daily_province_out(province, conn="", cursor=""):
     cursor.execute(sql, args)
     answers = cursor.fetchall()
     return answers
-
 
 
